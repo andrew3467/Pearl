@@ -33,6 +33,8 @@
 
 
 # VS22 Files
-*/.vs/*
+.vs/*
 *.vcxproj*
 *.sln
+bin/*
+bin-int/*
