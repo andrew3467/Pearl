@@ -3,6 +3,7 @@
 //For use of Pearl Applications
 
 #include "Pearl/Application.h"
+#include "Pearl/Log.h"
 
 
 
