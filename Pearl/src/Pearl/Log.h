@@ -2,6 +2,8 @@
 
 #include "Core.h"
 #include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
+
 #include <memory>
 
 namespace Pearl {
@@ -34,6 +36,3 @@ namespace Pearl {
 #define PRL_WARN(...)			::Pearl::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define PRL_ERROR(...)			::Pearl::Log::GetClientLogger()->error(__VA_ARGS__)
 #define PRL_FATAL(...)			::Pearl::Log::GetClientLogger()->fatal(__VA_ARGS__)
-
-
-+

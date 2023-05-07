@@ -1,5 +1,8 @@
 #include "Application.h"
 
+#include "Pearl/Events/ApplicationEvent.h"
+#include "Pearl/Log.h"
+
 
 namespace Pearl {
 	
@@ -13,8 +16,10 @@ namespace Pearl {
 
 	void Application::Run()
 	{
-		while (true) {
+		WindowResizeEvent e(1280, 720);
+		PRL_TRACE(e);
 
-		}
+
+		while (true);
 	}
 }
