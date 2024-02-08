@@ -3,7 +3,13 @@ project(Pearl-Engine)
 
 set(CMAKE_CXX_STANDARD 23)
 
-find_package(spdlog CONFIG REQUIRED)
+
+
+# SPDLOG
+add_subdirectory(external/spdlog)
+include_directories(external/spdlog/include)
+
+
 
 include_directories(src)
 
@@ -18,6 +24,6 @@ add_library(Pearl-Engine
 )
 
 target_link_libraries(Pearl-Engine
-        PRIVATE
+        PUBLIC
         spdlog::spdlog
 )

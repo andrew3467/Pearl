@@ -6,6 +6,7 @@
 #define PEARL_PEARL_H
 
 #include <Application.h>
+#include <Log.h>
 
 
 
