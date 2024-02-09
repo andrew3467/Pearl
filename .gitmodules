@@ -1,0 +1,3 @@
+[submodule "Pearl-Engine/external/glfw"]
+	path = Pearl-Engine/external/glfw
+	url = https://github.com/glfw/glfw.git

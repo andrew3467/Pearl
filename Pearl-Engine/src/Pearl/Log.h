@@ -24,6 +24,8 @@ namespace Pearl {
     };
 }
 
+
+//TODO only include with release
 #define PRL_CORE_TRACE(...)    ::Pearl::Log::GetCoreLogger()->trace(__VA_ARGS__)
 #define PRL_CORE_INFO(...)     ::Pearl::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define PRL_CORE_WARN(...)     ::Pearl::Log::GetCoreLogger()->warn(__VA_ARGS__)

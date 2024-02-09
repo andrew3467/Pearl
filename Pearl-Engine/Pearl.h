@@ -5,13 +5,14 @@
 #ifndef PEARL_PEARL_H
 #define PEARL_PEARL_H
 
-#include <Application.h>
-#include <Log.h>
+#include "src/Pearl/Application.h"
+#include "src/Pearl/Log.h"
+#include "Pearl/Layer.h"
 
 
 
 
 //Entry Point
-#include <EntryPoint.h>
+#include "src/Pearl/EntryPoint.h"
 
 #endif //PEARL_PEARL_H
