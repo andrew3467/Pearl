@@ -53,7 +53,32 @@ namespace Pearl {
 
         }
 
+        std::string ToString() const override {
+            std::stringstream ss;
+            ss << "KeyReleasedEvent: " << mKeyCode;
+            return ss.str();
+        }
+
         EVENT_CLASS_TYPE(KeyReleased)
+    };
+
+    class KeyTypedEvent : public KeyEvent {
+    public:
+        KeyTypedEvent(int keycode)
+            : KeyEvent(keycode) {
+
+        }
+
+        std::string ToString() const override {
+            std::stringstream ss;
+            ss << "KeyTypedEvent: " << mKeyCode;
+            return ss.str();
+        }
+
+        EVENT_CLASS_TYPE(KeyTyped)
+
+    private:
+
     };
 }
 

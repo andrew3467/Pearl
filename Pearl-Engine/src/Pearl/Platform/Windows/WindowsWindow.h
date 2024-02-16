@@ -27,6 +27,9 @@ namespace Pearl {
         void SetVSync(bool enabled) override;
         bool IsVSync() const override;
 
+        inline void* GetNativeWindow() const override {return mWindow;}
+
+
 
     private:
         void Init(const WindowProps &props);

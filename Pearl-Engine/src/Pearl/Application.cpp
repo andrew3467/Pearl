@@ -5,13 +5,20 @@
 #include "Application.h"
 #include "Log.h"
 
+#include "Pearl/Input.h"
+
 #include <GLFW/glfw3.h>
 #include <Glad/glad.h>
 
 namespace Pearl {
 #define BIND_EVENT_FUNC(x) std::bind(&x, this, std::placeholders::_1)
 
+    Application* Application::sInstance = nullptr;
+
     Application::Application() {
+        PRL_ASSERT(sInstance == nullptr, "Only 1 Application instance may exist")
+        sInstance = this;
+
         mWindow = std::unique_ptr<Window>(Window::Create());
         mWindow->SetEventCallback(BIND_EVENT_FUNC(Application::OnEvent));
     }
@@ -57,9 +64,11 @@ namespace Pearl {
 
     void Application::PushLayer(Layer *layer) {
         mLayerStack.PushLayer(layer);
+        layer->OnAttach();
     }
 
     void Application::PushOverlay(Layer *overlay) {
         mLayerStack.PushOverlay(overlay);
+        overlay->OnAttach();
     }
 }

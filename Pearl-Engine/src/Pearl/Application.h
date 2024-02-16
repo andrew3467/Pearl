@@ -25,12 +25,17 @@ namespace Pearl {
         void PushLayer(Layer* layer);
         void PushOverlay(Layer* overlay);
 
+        inline static Application& Get() {return *sInstance;}
+        inline Window& GetWindow() {return *mWindow;}
+
     private:
         bool OnWindowClosed(WindowCloseEvent &e);
 
-        std::unique_ptr<Window> mWindow;
-        bool mRunning = true;
+        static Application *sInstance;
 
+        std::unique_ptr<Window> mWindow;
+
+        bool mRunning = true;
         LayerStack mLayerStack;
     };
 

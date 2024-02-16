@@ -6,13 +6,19 @@
 #define PEARL_PEARL_H
 
 #include "src/Pearl/Application.h"
+#include "Pearl/Input.h"
+#include "Pearl/KeyCodes.h"
+#include "Pearl/MouseButtonCodes.h"
 #include "src/Pearl/Log.h"
 #include "Pearl/Layer.h"
 
 
+#include "Pearl/ImGui/ImGuiLayer.h"
 
 
 //Entry Point
-#include "src/Pearl/EntryPoint.h"
+#include "Pearl/EntryPoint.h"
+
+
 
 #endif //PEARL_PEARL_H

@@ -5,25 +5,22 @@ set(CMAKE_CXX_STANDARD 23)
 
 
 
-# SPDLOG
+#SPDLog
 add_subdirectory(external/spdlog)
 include_directories(external/spdlog/include)
+
+#GLAD
+file(GLOB_RECURSE GLAD_SRC external/glad/*)
+include_directories(external/glad/include)
 
 #GLFW
 add_subdirectory(external/glfw)
 include_directories(external/glfw/include)
 
-#GLAD
-include_directories(external/glad/include)
-set(GLAD_SRC external/glad/src/glad.c
-        src/Pearl/Layer.cpp
-        src/Pearl/Layer.h
-        src/Pearl/LayerStack.cpp
-        src/Pearl/LayerStack.h)
 
-
-
-include_directories(src)
+#Imgui
+add_subdirectory(external/imgui)
+include_directories(external/imgui)
 
 
 
@@ -45,4 +42,11 @@ target_link_libraries(Pearl-Engine
         PUBLIC
         spdlog::spdlog
         glfw
+        ImGui
+)
+
+target_include_directories(Pearl-Engine
+        PUBLIC
+        src
+        external/glm
 )

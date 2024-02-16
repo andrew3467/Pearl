@@ -5,7 +5,8 @@
 #ifndef PEARL_ENTRYPOINT_H
 #define PEARL_ENTRYPOINT_H
 
-#include "../Pearl.h"
+
+#include "Application.h"
 
 extern Pearl::Application* Pearl::CreateApplication();
 

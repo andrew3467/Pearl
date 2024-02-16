@@ -1,0 +1,22 @@
+//
+// Created by Andrew Graser on 2/15/2024.
+//
+
+#ifndef PEARL_MOUSEBUTTONCODES_H
+#define PEARL_MOUSEBUTTONCODES_H
+
+//from glfw3.h
+#define PRL_MOUSE_BUTTON_1         0
+#define PRL_MOUSE_BUTTON_2         1
+#define PRL_MOUSE_BUTTON_3         2
+#define PRL_MOUSE_BUTTON_4         3
+#define PRL_MOUSE_BUTTON_5         4
+#define PRL_MOUSE_BUTTON_6         5
+#define PRL_MOUSE_BUTTON_7         6
+#define PRL_MOUSE_BUTTON_8         7
+#define PRL_MOUSE_BUTTON_LAST      PRL_MOUSE_BUTTON_8
+#define PRL_MOUSE_BUTTON_LEFT      PRL_MOUSE_BUTTON_1
+#define PRL_MOUSE_BUTTON_RIGHT     PRL_MOUSE_BUTTON_2
+#define PRL_MOUSE_BUTTON_MIDDLE    PRL_MOUSE_BUTTON_3
+
+#endif //PEARL_MOUSEBUTTONCODES_H

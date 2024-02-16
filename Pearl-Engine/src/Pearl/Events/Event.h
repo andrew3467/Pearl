@@ -17,7 +17,7 @@ namespace Pearl {
         None = 0,
         WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
         AppTick, AppUpdate, AppRender,
-        KeyPressed, KeyReleased,
+        KeyPressed, KeyReleased, KeyTyped,
         MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
     };
 
@@ -76,6 +76,10 @@ namespace Pearl {
     private:
         Event &mEvent;
     };
+
+    inline std::ostream& operator<<(std::ostream& os, const Event& e){
+        return os << e.ToString();
+    }
 
 }
 #endif //PEARL_EVENT_H
