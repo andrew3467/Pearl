@@ -10,6 +10,7 @@
 #include "Window.h"
 #include "Pearl/Events/ApplicationEvent.h"
 #include "LayerStack.h"
+#include "Pearl/ImGui/ImGuiLayer.h"
 
 
 namespace Pearl {
@@ -34,6 +35,7 @@ namespace Pearl {
         static Application *sInstance;
 
         std::unique_ptr<Window> mWindow;
+        ImGuiLayer* mImGuiLayer;
 
         bool mRunning = true;
         LayerStack mLayerStack;

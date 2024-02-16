@@ -17,21 +17,12 @@ namespace Pearl {
         ~ImGuiLayer();
 
 
-        void OnAttach() override;
-        void OnDetach() override;
-        void OnUpdate() override;
-        void OnEvent(Event &event) override;
+        virtual void OnAttach() override;
+        virtual void OnDetach() override;
+        virtual void OnImGuiRender() override;
 
-
-    private:
-        bool OnMouseButtonPressedEvent(MouseButtonPressedEvent &e);
-        bool OnMouseButtonReleasedEvent(MouseButtonReleassedEvent &e);
-        bool OnMouseMovedEvent(MouseMovedEvent &e);
-        bool OnMouseScrolledEvent(MouseScrolledEvent &e);
-        bool OnKeyPressedEvent(KeyPressedEvent &e);
-        bool OnKeyReleasedEvent(KeyReleasedEvent &e);
-        bool OnKeyTypedEvent(KeyTypedEvent &e);
-        bool OnWindowResize(WindowResizeEvent &e);
+        void Begin();
+        void End();
 
 
     private:

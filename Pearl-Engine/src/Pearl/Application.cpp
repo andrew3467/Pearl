@@ -7,7 +7,6 @@
 
 #include "Pearl/Input.h"
 
-#include <GLFW/glfw3.h>
 #include <Glad/glad.h>
 
 namespace Pearl {
@@ -21,6 +20,9 @@ namespace Pearl {
 
         mWindow = std::unique_ptr<Window>(Window::Create());
         mWindow->SetEventCallback(BIND_EVENT_FUNC(Application::OnEvent));
+
+        mImGuiLayer = new ImGuiLayer();
+        PushOverlay(mImGuiLayer);
     }
 
     Application::~Application() {
@@ -39,6 +41,12 @@ namespace Pearl {
             for(Layer* layer : mLayerStack){
                 layer->OnUpdate();
             }
+
+            mImGuiLayer->Begin();
+            for(Layer* layer : mLayerStack){
+                layer->OnImGuiRender();
+            }
+            mImGuiLayer->End();
 
             mWindow->OnUpdate();
         }

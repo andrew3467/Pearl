@@ -25,8 +25,7 @@ public:
 class Sandbox : public Pearl::Application{
 public:
     Sandbox() {
-        PushLayer(new ExampleLayer);
-        PushOverlay(new Pearl::ImGuiLayer);
+        PushLayer(new ExampleLayer());
     }
     ~Sandbox() {
 

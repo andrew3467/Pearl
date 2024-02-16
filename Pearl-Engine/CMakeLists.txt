@@ -36,6 +36,7 @@ add_library(Pearl-Engine
         ${SOURCE}
         ${HEADERS}
         ${GLAD_SRC}
+        src/Pearl/ImGui/ImGuiBuild.cpp
 )
 
 target_link_libraries(Pearl-Engine

@@ -1,3 +1,6 @@
 [submodule "Pearl-Engine/external/glfw"]
 	path = Pearl-Engine/external/glfw
 	url = https://github.com/glfw/glfw.git
+[submodule "Pearl-Engine/external/imgui"]
+	path = Pearl-Engine/external/imgui
+	url = https://github.com/ocornut/imgui.git

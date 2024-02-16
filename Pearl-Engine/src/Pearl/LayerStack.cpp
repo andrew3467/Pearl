@@ -7,7 +7,7 @@
 namespace Pearl {
 
     LayerStack::LayerStack() {
-        mLayerInsert = mLayers.begin();
+
     }
 
     LayerStack::~LayerStack() {
@@ -17,7 +17,8 @@ namespace Pearl {
     }
 
     void LayerStack::PushLayer(Layer *layer) {
-        mLayerInsert = mLayers.emplace(mLayerInsert, layer);
+        mLayers.emplace(mLayers.begin() + mLayerInsertIndex, layer);
+        mLayerInsertIndex++;
     }
 
     void LayerStack::PushOverlay(Layer *overlay) {
@@ -28,7 +29,7 @@ namespace Pearl {
         auto it = std::find(mLayers.begin(), mLayers.end(), layer);
         if(it != mLayers.end()){
             mLayers.erase(it);
-            mLayerInsert--;
+            mLayerInsertIndex--;
         }
     }
 
