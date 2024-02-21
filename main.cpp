@@ -4,6 +4,9 @@
 
 #include <Pearl.h>
 
+#include <imgui.h>
+
+
 class ExampleLayer : public Pearl::Layer{
 public:
     ExampleLayer()
@@ -19,6 +22,12 @@ public:
 
     void OnEvent(Pearl::Event &event) override {
         //PRL_TRACE("{0}", event.ToString());
+    }
+
+    void OnImGuiRender() override {
+        ImGui::Begin("Example Layer");
+        ImGui::Text("Example Text");
+        ImGui::End();
     }
 };
 

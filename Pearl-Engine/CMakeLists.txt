@@ -37,6 +37,17 @@ add_library(Pearl-Engine
         ${HEADERS}
         ${GLAD_SRC}
         src/Pearl/ImGui/ImGuiBuild.cpp
+        src/Pearl/Renderer/GraphicsContext.h
+        src/Pearl/Platform/OpenGL/OpenGLContext.h
+        src/Pearl/Platform/OpenGL/OpenGLContext.cpp
+        src/Pearl/Renderer/Shader.cpp
+        src/Pearl/Renderer/Shader.h
+        src/Pearl/Renderer/Buffer.cpp
+        src/Pearl/Renderer/Buffer.h
+        src/Pearl/Platform/OpenGL/OpenGLBuffer.cpp
+        src/Pearl/Platform/OpenGL/OpenGLBuffer.h
+        src/Pearl/Renderer/Renderer.cpp
+        src/Pearl/Renderer/Renderer.h
 )
 
 target_link_libraries(Pearl-Engine

@@ -3,6 +3,7 @@
 //
 
 #include "WindowsWindow.h"
+#include "Pearl/Platform/OpenGL/OpenGLContext.h"
 #include "Pearl/Log.h"
 
 #include <Pearl/Events/KeyEvent.h>
@@ -36,8 +37,6 @@ namespace Pearl {
         mData.Width = props.Width;
         mData.Height = props.Height;
 
-        //PRL_CORE_INFO("Creating window {0} ({1} {2})", props.Title, props.Width, props.Height);
-
         if(!sGLFWInitialized){
             int success = glfwInit();
             PRL_CORE_ASSERT(success, "Could not initialize GLFW");
@@ -48,10 +47,9 @@ namespace Pearl {
         }
 
         mWindow = glfwCreateWindow((int)mData.Width, (int)mData.Height, mData.Title.c_str(), nullptr, nullptr);
-        glfwMakeContextCurrent(mWindow);
 
-        int success = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
-        PRL_CORE_ASSERT(success, "Failed to inialize GLAD");
+        mContext = new OpenGLContext(mWindow);
+        mContext->Init();
 
         glfwSetWindowUserPointer(mWindow, &mData);
         SetVSync(true);
@@ -155,6 +153,6 @@ namespace Pearl {
 
     void WindowsWindow::OnUpdate() {
         glfwPollEvents();
-        glfwSwapBuffers(mWindow);
+        mContext->SwapBuffers();
     }
 }

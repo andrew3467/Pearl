@@ -7,7 +7,10 @@
 
 
 #include "Pearl/Window.h"
+#include "Pearl/Renderer/GraphicsContext.h"
+
 #include <GLFW/glfw3.h>
+
 
 namespace Pearl {
     class WindowsWindow : public Window {
@@ -37,6 +40,8 @@ namespace Pearl {
 
     private:
         GLFWwindow* mWindow;
+
+        GraphicsContext *mContext;
 
         struct WindowData{
             std::string Title;
