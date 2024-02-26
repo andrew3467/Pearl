@@ -9,6 +9,8 @@
 #include <Glad/glad.h>
 #include <vector>
 
+#include <glm/gtc/type_ptr.hpp>
+
 namespace Pearl {
 
     Shader::Shader(const std::string &vertexSrc, const std::string &fragmentSrc) {
@@ -132,5 +134,10 @@ namespace Pearl {
 
     void Shader::Unbind() const {
         glUseProgram(0);
+    }
+
+    void Shader::UploadUniformMat4(const std::string& name, const glm::mat4 &v) {
+        GLint location = glGetUniformLocation(mRendererID, name.c_str());
+        glUniformMatrix4fv(location, 1, false, glm::value_ptr(v));
     }
 }

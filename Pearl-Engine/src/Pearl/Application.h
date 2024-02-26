@@ -12,7 +12,8 @@
 #include "LayerStack.h"
 #include "Pearl/ImGui/ImGuiLayer.h"
 #include "Pearl/Renderer/Shader.h"
-#include "Pearl/Renderer/Buffer.h"
+#include "Pearl/Renderer/VertexArray.h"
+#include "Pearl/Renderer/OrthographicCamera.h"
 
 
 namespace Pearl {
@@ -41,11 +42,6 @@ namespace Pearl {
 
         bool mRunning = true;
         LayerStack mLayerStack;
-
-        unsigned int mVertexArray;
-        std::unique_ptr<Shader> mShader;
-        std::unique_ptr<VertexBuffer> mVertexBuffer;
-        std::unique_ptr<IndexBuffer> mIndexBuffer;
     };
 
     Application* CreateApplication();   //Defined in client

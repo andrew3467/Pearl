@@ -48,6 +48,20 @@ add_library(Pearl-Engine
         src/Pearl/Platform/OpenGL/OpenGLBuffer.h
         src/Pearl/Renderer/Renderer.cpp
         src/Pearl/Renderer/Renderer.h
+        src/Pearl/Renderer/VertexArray.cpp
+        src/Pearl/Renderer/VertexArray.h
+        src/Pearl/Platform/OpenGL/OpenGLVertexArray.cpp
+        src/Pearl/Platform/OpenGL/OpenGLVertexArray.h
+        src/Pearl/Renderer/RendererAPI.h
+        src/Pearl/Renderer/RendererAPI.cpp
+        src/Pearl/Renderer/RenderCommand.h
+        src/Pearl/Renderer/RenderCommand.cpp
+        src/Pearl/Platform/OpenGL/OpenGLRendererAPI.cpp
+        src/Pearl/Platform/OpenGL/OpenGLRendererAPI.h
+        src/Pearl/Renderer/OrthographicCamera.h
+        src/Pearl/Renderer/OrthographicCamera.cpp
+        src/Pearl/Timestep.cpp
+        src/Pearl/Timestep.h
 )
 
 target_link_libraries(Pearl-Engine

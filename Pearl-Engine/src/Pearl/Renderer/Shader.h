@@ -9,6 +9,8 @@
 #include <string>
 #include <cstdint>
 
+#include <glm/glm.hpp>
+
 namespace Pearl {
     class Shader {
     public:
@@ -17,6 +19,8 @@ namespace Pearl {
 
         void Bind() const;
         void Unbind() const;
+
+        void UploadUniformMat4(const std::string& name, const glm::mat4& v);
 
     private:
         uint32_t mRendererID;

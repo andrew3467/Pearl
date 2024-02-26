@@ -6,18 +6,30 @@
 #define PEARL_RENDERER_H
 
 
+#include <memory>
+#include "VertexArray.h"
+#include "RendererAPI.h"
+#include "OrthographicCamera.h"
+#include "Shader.h"
+
 namespace Pearl {
-    enum class RendererAPI {
-        None = 0,
-        OpenGL = 1
-    };
 
     class Renderer {
     public:
-        static inline RendererAPI GetAPI() { return sRendererAPI; }
+        static void BeginScene(OrthographicCamera &camera);
+        static void EndScene();
+
+        static void Submit(const std::shared_ptr<Shader> &shader, std::shared_ptr<VertexArray>& vertexArray);
+
+
+        inline static RendererAPI::API GetAPI() {return RendererAPI::GetAPI();}
 
     private:
-        static RendererAPI sRendererAPI;
+        struct SceneData {
+            glm::mat4 ViewProjectionMatrix;
+        };
+
+        static SceneData* mSceneData;
     };
 }
 

@@ -12,8 +12,8 @@ namespace Pearl {
 
     VertexBuffer *VertexBuffer::Create(float *vertices, uint32_t size) {
         switch (Renderer::GetAPI()) {
-            case RendererAPI::None:             /*PRL_CORE_ASSERT(false, "Renderer API::None is currently not supported!"); */return nullptr;
-            case RendererAPI::OpenGL:           return new OpenGLVertexBuffer(vertices, size);
+            case RendererAPI::API::None:             /*PRL_CORE_ASSERT(false, "Renderer API::None is currently not supported!"); */return nullptr;
+            case RendererAPI::API::OpenGL:           return new OpenGLVertexBuffer(vertices, size);
         }
 
         return nullptr;
@@ -21,8 +21,8 @@ namespace Pearl {
 
     IndexBuffer *IndexBuffer::Create(uint32_t *indices, uint32_t size) {
         switch (Renderer::GetAPI()) {
-            case RendererAPI::None:             /*PRL_CORE_ASSERT(false, "Renderer API::None is currently not supported!"); */return nullptr;
-            case RendererAPI::OpenGL:           return new OpenGLIndexBuffer(indices, size);
+            case RendererAPI::API::None:             /*PRL_CORE_ASSERT(false, "Renderer API::None is currently not supported!"); */return nullptr;
+            case RendererAPI::API::OpenGL:           return new OpenGLIndexBuffer(indices, size);
         }
 
         return nullptr;
