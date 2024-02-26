@@ -122,7 +122,7 @@ namespace Pearl {
 
     class VertexBuffer {
     public:
-        virtual ~VertexBuffer() {}
+        virtual ~VertexBuffer() = default;
 
         virtual void SetLayout(const BufferLayout& layout) = 0;
         virtual const BufferLayout& GetLayout() const = 0;
@@ -135,7 +135,7 @@ namespace Pearl {
 
     class IndexBuffer {
     public:
-        virtual ~IndexBuffer() {}
+        virtual ~IndexBuffer() = default;
 
         static IndexBuffer* Create(uint32_t *indices, uint32_t size);
 

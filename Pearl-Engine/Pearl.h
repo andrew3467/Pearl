@@ -9,6 +9,8 @@
 #include "Pearl/Log.h"
 #include "Pearl/Layer.h"
 
+#include "Pearl/Core/Timestep.h"
+
 
 #include "Pearl/Input.h"
 #include "Pearl/KeyCodes.h"

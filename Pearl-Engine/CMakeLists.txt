@@ -60,8 +60,9 @@ add_library(Pearl-Engine
         src/Pearl/Platform/OpenGL/OpenGLRendererAPI.h
         src/Pearl/Renderer/OrthographicCamera.h
         src/Pearl/Renderer/OrthographicCamera.cpp
-        src/Pearl/Timestep.cpp
-        src/Pearl/Timestep.h
+        src/Pearl/Core/Timestep.h
+        src/Pearl/Platform/OpenGL/OpenGLShader.cpp
+        src/Pearl/Platform/OpenGL/OpenGLShader.h
 )
 
 target_link_libraries(Pearl-Engine

@@ -10,7 +10,7 @@
 namespace Pearl {
     class VertexArray {
         public:
-            virtual ~VertexArray() {}
+            virtual ~VertexArray() = default;
 
             virtual void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) = 0;
             virtual void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) = 0;

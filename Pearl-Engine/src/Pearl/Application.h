@@ -14,6 +14,7 @@
 #include "Pearl/Renderer/Shader.h"
 #include "Pearl/Renderer/VertexArray.h"
 #include "Pearl/Renderer/OrthographicCamera.h"
+#include "Pearl/Core/Timestep.h"
 
 
 namespace Pearl {
@@ -35,13 +36,19 @@ namespace Pearl {
     private:
         bool OnWindowClosed(WindowCloseEvent &e);
 
+    private:
+
         static Application *sInstance;
+
+    private:
 
         std::unique_ptr<Window> mWindow;
         ImGuiLayer* mImGuiLayer;
 
         bool mRunning = true;
         LayerStack mLayerStack;
+
+        float mLastFrameTime = 0.0f;
     };
 
     Application* CreateApplication();   //Defined in client

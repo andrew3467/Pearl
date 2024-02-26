@@ -5,12 +5,15 @@
 #include <Pearl.h>
 
 #include <imgui.h>
+#include "glm/gtc/matrix_transform.hpp"
+#include "Pearl/Platform/OpenGL/OpenGLShader.h"
+#include "glm/gtc/type_ptr.hpp"
 
 
 class ExampleLayer : public Pearl::Layer{
 public:
     ExampleLayer()
-        : Layer("Example"), mCamera(-1.6f, 1.6f, -0.9f, 0.9f), mCameraPosition(0.0f) {
+        : Layer("Example"), mCamera(-1.6f, 1.6f, -0.9f, 0.9f), mCameraPosition(0.0f), mSquarePosition(0.0f) {
         mVertexArray.reset(Pearl::VertexArray::Create());
 
         float vertices[3 * 7] = {
@@ -73,6 +76,7 @@ public:
             layout(location = 1) in vec4 aColor;
 
             uniform mat4 uViewProjection;
+            uniform mat4 uTransform;
 
             out vec3 vPosition;
             out vec4 vColor;
@@ -81,7 +85,7 @@ public:
                 vColor = aColor;
                 vPosition = aPosition;
 
-                gl_Position = uViewProjection * vec4(aPosition, 1.0);
+                gl_Position = uViewProjection * uTransform * vec4(aPosition, 1.0);
             }
         )";
 
@@ -99,63 +103,75 @@ public:
         )";
 
 
-        mShader.reset(new Pearl::Shader(vertexSrc, fragmentSrc));
+        mShader.reset(Pearl::Shader::Create(vertexSrc, fragmentSrc));
 
-        std::string blueShaderVertexSrc = R"(
+        std::string solidShaderVertexSrc = R"(
             #version 460 core
 
             layout(location = 0) in vec3 aPosition;
 
             uniform mat4 uViewProjection;
+            uniform mat4 uTransform;
 
             out vec3 vPosition;
 
             void main() {
                 vPosition = aPosition;
 
-                gl_Position = uViewProjection * vec4(aPosition, 1.0);
+                gl_Position = uViewProjection * uTransform * vec4(aPosition, 1.0);
             }
         )";
 
-        std::string blueShaderFragmentSrc = R"(
+        std::string solidShaderFragmentSrc = R"(
             #version 460 core
 
             layout(location = 0) out vec4 color;
 
             in vec3 vPosition;
 
+            uniform vec4 uColor;
+
             void main() {
-                color = vec4(0.2, 0.3, 0.8, 1.0);
+                color = uColor;
             }
         )";
 
 
-        mBlueShader.reset(new Pearl::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
+        mSolidShader.reset(Pearl::Shader::Create(solidShaderVertexSrc, solidShaderFragmentSrc));
     }
 
-    void OnUpdate() override {
+    void OnUpdate(Pearl::Timestep ts) override {
+
         if(Pearl::Input::IsKeyPressed(PRL_KEY_A)){
-            mCameraPosition.x -= mCameraMoveSpeed;
+            mCameraPosition.x -= mCameraMoveSpeed * ts;
         }
 
         if(Pearl::Input::IsKeyPressed(PRL_KEY_D)){
-            mCameraPosition.x += mCameraMoveSpeed;
+            mCameraPosition.x += mCameraMoveSpeed * ts;
         }
 
         if(Pearl::Input::IsKeyPressed(PRL_KEY_S)){
-            mCameraPosition.y += mCameraMoveSpeed;
+            mCameraPosition.y -= mCameraMoveSpeed * ts;
         }
 
         if(Pearl::Input::IsKeyPressed(PRL_KEY_W)){
-            mCameraPosition.y -= mCameraMoveSpeed;
+            mCameraPosition.y += mCameraMoveSpeed * ts;
         }
 
         if(Pearl::Input::IsKeyPressed(PRL_KEY_LEFT)){
-            mCameraRotation += mCameraRotationSpeed;
+            mCameraRotation += mCameraRotationSpeed * ts;
         }
 
         if(Pearl::Input::IsKeyPressed(PRL_KEY_RIGHT)){
-            mCameraRotation -= mCameraRotationSpeed;
+            mCameraRotation -= mCameraRotationSpeed * ts;
+        }
+
+        if(Pearl::Input::IsKeyPressed(PRL_KEY_UP)){
+            mSquarePosition.y += mSquareMoveSpeed * ts;
+        }
+
+        if(Pearl::Input::IsKeyPressed(PRL_KEY_DOWN)){
+            mSquarePosition.y -= mSquareMoveSpeed * ts;
         }
 
 
@@ -168,8 +184,27 @@ public:
 
         Pearl::Renderer::BeginScene(mCamera);
 
-        Pearl::Renderer::Submit(mBlueShader, mSquareVA);
-        Pearl::Renderer::Submit(mShader, mVertexArray);
+
+        glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+
+        std::dynamic_pointer_cast<Pearl::OpenGLShader>(mSolidShader)->Bind();
+        for(int y = 0; y < mNumCols; y++){
+            for (int x = 0; x < mNumRows; ++x) {
+                glm::vec3 pos((x - mNumRows / 2.0f) * 0.11f, (y - mNumCols / 2.0f) * 0.11f, 0.0f);
+                glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+
+                if(x % 2 == 0) {
+                    std::dynamic_pointer_cast<Pearl::OpenGLShader>(mSolidShader)->UploadUniformVec4("uColor", mColorA);
+                } else {
+                    std::dynamic_pointer_cast<Pearl::OpenGLShader>(mSolidShader)->UploadUniformVec4("uColor", mColorB);
+                }
+
+                Pearl::Renderer::Submit(mSolidShader, mSquareVA, transform);
+            }
+        }
+
+        //Pearl::Renderer::Submit(mShader, mVertexArray);
 
         Pearl::Renderer::EndScene();
     }
@@ -180,11 +215,16 @@ public:
 
 
     void OnImGuiRender() override {
+        ImGui::Begin("Material Editor");
 
+        ImGui::ColorEdit4("Color A", glm::value_ptr(mColorA));
+        ImGui::ColorEdit4("Color B", glm::value_ptr(mColorB));
+
+        ImGui::End();
     }
 
 private:
-    std::shared_ptr<Pearl::Shader> mBlueShader;
+    std::shared_ptr<Pearl::Shader> mSolidShader;
     std::shared_ptr<Pearl::Shader> mShader;
 
     std::shared_ptr<Pearl::VertexArray> mVertexArray;
@@ -193,10 +233,17 @@ private:
     Pearl::OrthographicCamera mCamera;
 
     glm::vec3 mCameraPosition;
-    float mCameraMoveSpeed = 0.1f;
+    float mCameraMoveSpeed = 2.5f;
 
     float mCameraRotation = 0.0f;
-    float mCameraRotationSpeed = 2.0f;
+    float mCameraRotationSpeed = 180.0f;
+
+    glm::vec3 mSquarePosition;
+    float mSquareMoveSpeed = 1.0f;
+
+    int mNumCols = 20, mNumRows = 20;
+    glm::vec4 mColorA = {0.8f, 0.2f, 0.3f, 1.0f};
+    glm::vec4 mColorB = {0.2f, 0.3f, 0.8f, 1.0f};
 };
 
 class Sandbox : public Pearl::Application{

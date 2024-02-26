@@ -7,6 +7,7 @@
 
 
 #include "Pearl/Events/Event.h"
+#include "Pearl/Core/Timestep.h"
 
 namespace Pearl {
     class Layer {
@@ -16,7 +17,7 @@ namespace Pearl {
 
         virtual void OnAttach() {}
         virtual void OnDetach() {}
-        virtual void OnUpdate() {}
+        virtual void OnUpdate(Timestep ts) {}
         virtual void OnImGuiRender() {}
 
         virtual void OnEvent(Event &event) {}

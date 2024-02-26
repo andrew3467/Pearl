@@ -6,9 +6,8 @@
 #include "Log.h"
 
 #include "Pearl/Input.h"
-#include "Pearl/Renderer/Renderer.h"
-#include "Pearl/Renderer/RenderCommand.h"
 
+#include <GLFW/glfw3.h>
 
 
 namespace Pearl {
@@ -38,8 +37,12 @@ namespace Pearl {
 
     void Application::Run() {
         while(mRunning){
+            float time = (float)glfwGetTime();     //Platform::GetTime()
+            Timestep timestep = time - mLastFrameTime;
+            mLastFrameTime = time;
+
             for(Layer* layer : mLayerStack){
-                layer->OnUpdate();
+                layer->OnUpdate(timestep);
             }
 
             mImGuiLayer->Begin();
