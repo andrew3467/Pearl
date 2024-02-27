@@ -63,6 +63,10 @@ add_library(Pearl-Engine
         src/Pearl/Core/Timestep.h
         src/Pearl/Platform/OpenGL/OpenGLShader.cpp
         src/Pearl/Platform/OpenGL/OpenGLShader.h
+        src/Pearl/Renderer/Texture.cpp
+        src/Pearl/Renderer/Texture.h
+        src/Pearl/Platform/OpenGL/OpenGLTexture.cpp
+        src/Pearl/Platform/OpenGL/OpenGLTexture.h
 )
 
 target_link_libraries(Pearl-Engine

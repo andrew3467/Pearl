@@ -14,41 +14,13 @@ class ExampleLayer : public Pearl::Layer{
 public:
     ExampleLayer()
         : Layer("Example"), mCamera(-1.6f, 1.6f, -0.9f, 0.9f), mCameraPosition(0.0f), mSquarePosition(0.0f) {
-        mVertexArray.reset(Pearl::VertexArray::Create());
-
-        float vertices[3 * 7] = {
-                -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-                0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-                0.0f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-        };
-
-        uint32_t indices[3] = {
-                0, 1, 2,
-        };
-
-        std::shared_ptr<Pearl::VertexBuffer> vertexBuffer;
-        vertexBuffer.reset(Pearl::VertexBuffer::Create(vertices, sizeof(vertices)));
-
-        Pearl::BufferLayout layout = {
-                {Pearl::ShaderDataType::Float3, "aPosition"},
-                {Pearl::ShaderDataType::Float4, "aColor"},
-        };
-
-        vertexBuffer->SetLayout(layout);
-        mVertexArray->AddVertexBuffer(vertexBuffer);
-
-
-        std::shared_ptr<Pearl::IndexBuffer> indexBuffer;
-        indexBuffer.reset(Pearl::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-        mVertexArray->SetIndexBuffer(indexBuffer);
-
         mSquareVA.reset(Pearl::VertexArray::Create());
 
-        float squareVertices[4 * 3] = {
-                -0.5f, -0.5f, 0.0f,
-                0.5f, -0.5f, 0.0f,
-                0.5f, 0.5f, 0.0f,
-                -0.5f, 0.5f, 0.0f,
+        float squareVertices[4 * 3 * 2] = {
+                -0.5f, -0.5f, 0.0f,         0.0f, 0.0f,
+                0.5f, -0.5f, 0.0f,          1.0f, 0.0f,
+                0.5f, 0.5f, 0.0f,        1.0f, 1.0f,
+                -0.5f, 0.5f, 0.0f,       0.0f, 1.0f,
         };
 
         uint32_t squareIndices[6] = {
@@ -60,8 +32,9 @@ public:
         squareVB.reset(Pearl::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 
         squareVB->SetLayout({
-                                    {Pearl::ShaderDataType::Float3, "aPosition"},
-                            });
+                {Pearl::ShaderDataType::Float3, "aPosition"},
+                {Pearl::ShaderDataType::Float2, "aTexCoord"},
+            });
         mSquareVA->AddVertexBuffer(squareVB);
 
         std::shared_ptr<Pearl::IndexBuffer> squareIB;
@@ -138,6 +111,40 @@ public:
 
 
         mSolidShader.reset(Pearl::Shader::Create(solidShaderVertexSrc, solidShaderFragmentSrc));
+
+        std::string textureShaderVertexSrc = R"(
+            #version 460 core
+
+            layout(location = 0) in vec3 aPosition;
+            layout(location = 1) in vec2 aTexCoord;
+
+            uniform mat4 uViewProjection;
+            uniform mat4 uTransform;
+
+            out vec2 vTexCoord;
+
+
+            void main() {
+                vTexCoord = aTexCoord;
+
+                gl_Position = uViewProjection * uTransform * vec4(aPosition, 1.0);
+            }
+        )";
+
+        std::string textureShaderFragmentSrc = R"(
+            #version 460 core
+
+            layout(location = 0) out vec4 color;
+
+            in vec2 vTexCoord;
+
+            void main() {
+                color = vec4(vTexCoord, 0.0, 1.0);
+            }
+        )";
+
+
+        mTextureShader.reset(Pearl::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
     }
 
     void OnUpdate(Pearl::Timestep ts) override {
@@ -204,7 +211,7 @@ public:
             }
         }
 
-        //Pearl::Renderer::Submit(mShader, mVertexArray);
+        Pearl::Renderer::Submit(mTextureShader, mSquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
         Pearl::Renderer::EndScene();
     }
@@ -224,11 +231,11 @@ public:
     }
 
 private:
-    std::shared_ptr<Pearl::Shader> mSolidShader;
-    std::shared_ptr<Pearl::Shader> mShader;
+    Pearl::Ref<Pearl::Shader> mSolidShader;
+    Pearl::Ref<Pearl::Shader> mShader;
+    Pearl::Ref<Pearl::Shader> mTextureShader;
 
-    std::shared_ptr<Pearl::VertexArray> mVertexArray;
-    std::shared_ptr<Pearl::VertexArray> mSquareVA;
+    Pearl::Ref<Pearl::VertexArray> mSquareVA;
 
     Pearl::OrthographicCamera mCamera;
 
