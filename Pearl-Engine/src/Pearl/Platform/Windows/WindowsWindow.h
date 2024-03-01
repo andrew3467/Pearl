@@ -6,7 +6,7 @@
 #define PEARL_WINDOWSWINDOW_H
 
 
-#include "Pearl/Window.h"
+#include "Pearl/Core/Window.h"
 #include "Pearl/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>

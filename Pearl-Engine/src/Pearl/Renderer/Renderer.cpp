@@ -26,4 +26,8 @@ namespace Pearl {
         vertexArray->Bind();
         RenderCommand::DrawIndexed(vertexArray);
     }
+
+    void Renderer::Init() {
+        RenderCommand::Init();
+    }
 }

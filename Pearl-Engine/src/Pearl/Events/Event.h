@@ -6,7 +6,7 @@
 #define PEARL_EVENT_H
 
 
-#include "Pearl/Core.h"
+#include "Pearl/Core/Core.h"
 #include <string>
 #include <functional>
 

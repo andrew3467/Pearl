@@ -6,15 +6,15 @@
 #define PEARL_APPLICATION_H
 
 #include <memory>
-#include "Core.h"
-#include "Window.h"
+#include "Pearl/Core/Core.h"
+#include "Pearl/Core/Window.h"
 #include "Pearl/Events/ApplicationEvent.h"
-#include "LayerStack.h"
+#include "Pearl/Core/LayerStack.h"
 #include "Pearl/ImGui/ImGuiLayer.h"
 #include "Pearl/Renderer/Shader.h"
 #include "Pearl/Renderer/VertexArray.h"
 #include "Pearl/Renderer/OrthographicCamera.h"
-#include "Pearl/Core/Timestep.h"
+#include "../../../../Tungsten/Wolframite/src/Wolframite/Core/Timestep.h"
 
 
 namespace Pearl {

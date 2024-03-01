@@ -17,10 +17,11 @@ namespace Pearl {
         virtual uint32_t GetWidth() const override {return mWidth;};
         virtual uint32_t GetHeight() const override {return mHeight;};
 
-        virtual void Bind() const override;
+        virtual void Bind(uint32_t slot = 0) const override;
 
     private:
         uint32_t mWidth, mHeight;
+        uint32_t mRendererID;
         std::string mPath;
     };
 }

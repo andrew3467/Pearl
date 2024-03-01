@@ -6,7 +6,7 @@
 #define PEARL_ENTRYPOINT_H
 
 
-#include "Application.h"
+#include "Pearl/Application.h"
 
 extern Pearl::Application* Pearl::CreateApplication();
 

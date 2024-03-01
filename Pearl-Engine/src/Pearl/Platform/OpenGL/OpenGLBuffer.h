@@ -14,8 +14,8 @@ namespace Pearl {
         OpenGLVertexBuffer(float* vertices, uint32_t size);
         ~OpenGLVertexBuffer() override;
 
-        virtual void SetLayout(const BufferLayout& layout) override {mLayout = layout;};
-        virtual const BufferLayout& GetLayout() const { return mLayout;};
+        virtual void SetLayout(const BufferLayout& layout) override {mLayout = layout;}
+        virtual const BufferLayout& GetLayout() const { return mLayout;}
 
         virtual void Bind() const override;
         virtual void Unbind() const override;

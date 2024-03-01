@@ -5,7 +5,7 @@
 #ifndef PEARL_WINDOWSINPUT_H
 #define PEARL_WINDOWSINPUT_H
 
-#include "Pearl/Input.h"
+#include "Pearl/Core/Input.h"
 
 
 namespace Pearl {

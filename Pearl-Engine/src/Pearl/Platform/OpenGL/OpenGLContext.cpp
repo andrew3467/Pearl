@@ -4,8 +4,8 @@
 
 #include "OpenGLContext.h"
 
-#include "Pearl/Log.h"
-#include "Pearl/Core.h"
+#include "Pearl/Core/Log.h"
+#include "Pearl/Core/Core.h"
 
 #include <GLFW/glfw3.h>
 #include <Glad/glad.h>

@@ -4,7 +4,7 @@
 
 #include "WindowsWindow.h"
 #include "Pearl/Platform/OpenGL/OpenGLContext.h"
-#include "Pearl/Log.h"
+#include "Pearl/Core/Log.h"
 
 #include <Pearl/Events/KeyEvent.h>
 #include <Pearl/Events/MouseEvent.h>

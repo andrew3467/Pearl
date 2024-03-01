@@ -22,6 +22,10 @@ include_directories(external/glfw/include)
 add_subdirectory(external/imgui)
 include_directories(external/imgui)
 
+#stb image
+file(GLOB_RECURSE STB_SRC external/stbimage/*)
+include_directories(external/stbimage/include)
+
 
 
 #Tell glfw not to include OpenGL
@@ -36,37 +40,6 @@ add_library(Pearl-Engine
         ${SOURCE}
         ${HEADERS}
         ${GLAD_SRC}
-        src/Pearl/ImGui/ImGuiBuild.cpp
-        src/Pearl/Renderer/GraphicsContext.h
-        src/Pearl/Platform/OpenGL/OpenGLContext.h
-        src/Pearl/Platform/OpenGL/OpenGLContext.cpp
-        src/Pearl/Renderer/Shader.cpp
-        src/Pearl/Renderer/Shader.h
-        src/Pearl/Renderer/Buffer.cpp
-        src/Pearl/Renderer/Buffer.h
-        src/Pearl/Platform/OpenGL/OpenGLBuffer.cpp
-        src/Pearl/Platform/OpenGL/OpenGLBuffer.h
-        src/Pearl/Renderer/Renderer.cpp
-        src/Pearl/Renderer/Renderer.h
-        src/Pearl/Renderer/VertexArray.cpp
-        src/Pearl/Renderer/VertexArray.h
-        src/Pearl/Platform/OpenGL/OpenGLVertexArray.cpp
-        src/Pearl/Platform/OpenGL/OpenGLVertexArray.h
-        src/Pearl/Renderer/RendererAPI.h
-        src/Pearl/Renderer/RendererAPI.cpp
-        src/Pearl/Renderer/RenderCommand.h
-        src/Pearl/Renderer/RenderCommand.cpp
-        src/Pearl/Platform/OpenGL/OpenGLRendererAPI.cpp
-        src/Pearl/Platform/OpenGL/OpenGLRendererAPI.h
-        src/Pearl/Renderer/OrthographicCamera.h
-        src/Pearl/Renderer/OrthographicCamera.cpp
-        src/Pearl/Core/Timestep.h
-        src/Pearl/Platform/OpenGL/OpenGLShader.cpp
-        src/Pearl/Platform/OpenGL/OpenGLShader.h
-        src/Pearl/Renderer/Texture.cpp
-        src/Pearl/Renderer/Texture.h
-        src/Pearl/Platform/OpenGL/OpenGLTexture.cpp
-        src/Pearl/Platform/OpenGL/OpenGLTexture.h
 )
 
 target_link_libraries(Pearl-Engine

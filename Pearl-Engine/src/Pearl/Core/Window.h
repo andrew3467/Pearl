@@ -5,7 +5,7 @@
 #ifndef PEARL_WINDOW_H
 #define PEARL_WINDOW_H
 
-#include "Events/Event.h"
+#include "Pearl/Events/Event.h"
 
 namespace Pearl {
 

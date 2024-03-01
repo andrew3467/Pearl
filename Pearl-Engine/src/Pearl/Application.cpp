@@ -3,9 +3,10 @@
 //
 
 #include "Application.h"
-#include "Log.h"
+#include "Pearl/Core/Log.h"
 
-#include "Pearl/Input.h"
+#include "Pearl/Core/Input.h"
+#include "Pearl/Renderer/Renderer.h"
 
 #include <GLFW/glfw3.h>
 
@@ -24,6 +25,8 @@ namespace Pearl {
 
         mWindow = std::unique_ptr<Window>(Window::Create());
         mWindow->SetEventCallback(BIND_EVENT_FUNC(Application::OnEvent));
+
+        Renderer::Init();
 
         mImGuiLayer = new ImGuiLayer();
         PushOverlay(mImGuiLayer);

@@ -11,6 +11,10 @@
 namespace Pearl {
     class RenderCommand {
     public:
+        inline static void Init(){
+            sRendererAPI->Init();
+        }
+
         inline static void SetClearColor(const glm::vec4& color) {
             sRendererAPI->SetClearColor(color);
         }

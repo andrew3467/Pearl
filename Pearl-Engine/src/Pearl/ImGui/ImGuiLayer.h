@@ -5,7 +5,7 @@
 #ifndef PEARL_IMGUILAYER_H
 #define PEARL_IMGUILAYER_H
 
-#include "Pearl/Layer.h"
+#include "Pearl/Core/Layer.h"
 #include "Pearl/Events/MouseEvent.h"
 #include "Pearl/Events/KeyEvent.h"
 #include "Pearl/Events/ApplicationEvent.h"

@@ -6,15 +6,16 @@
 #define PEARL_PEARL_H
 
 #include "Pearl/Application.h"
-#include "Pearl/Log.h"
-#include "Pearl/Layer.h"
+#include "src/Pearl/Core/Log.h"
+#include "src/Pearl/Core/Layer.h"
+#include "src/Pearl/Core/Timestep.h"
 
-#include "Pearl/Core/Timestep.h"
+#include "../../Tungsten/Wolframite/src/Wolframite/Core/Timestep.h"
 
 
-#include "Pearl/Input.h"
-#include "Pearl/KeyCodes.h"
-#include "Pearl/MouseButtonCodes.h"
+#include "src/Pearl/Core/Input.h"
+#include "src/Pearl/Core/KeyCodes.h"
+#include "src/Pearl/Core/MouseButtonCodes.h"
 
 
 #include "Pearl/ImGui/ImGuiLayer.h"
@@ -28,13 +29,14 @@
 #include "Pearl/Renderer/Buffer.h"
 #include "Pearl/Renderer/VertexArray.h"
 #include "Pearl/Renderer/Shader.h"
+#include "Pearl/Renderer/Texture.h"
 
 
 #include "Pearl/Renderer/OrthographicCamera.h"
 
 
 //Entry Point
-#include "Pearl/EntryPoint.h"
+#include "src/Pearl/Core/EntryPoint.h"
 
 
 

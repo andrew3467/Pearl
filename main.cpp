@@ -10,6 +10,7 @@
 #include "glm/gtc/type_ptr.hpp"
 
 
+
 class ExampleLayer : public Pearl::Layer{
 public:
     ExampleLayer()
@@ -42,109 +43,14 @@ public:
         mSquareVA->SetIndexBuffer(squareIB);
 
 
-        std::string vertexSrc = R"(
-            #version 460 core
-
-            layout(location = 0) in vec3 aPosition;
-            layout(location = 1) in vec4 aColor;
-
-            uniform mat4 uViewProjection;
-            uniform mat4 uTransform;
-
-            out vec3 vPosition;
-            out vec4 vColor;
-
-            void main() {
-                vColor = aColor;
-                vPosition = aPosition;
-
-                gl_Position = uViewProjection * uTransform * vec4(aPosition, 1.0);
-            }
-        )";
-
-        std::string fragmentSrc = R"(
-            #version 460 core
-
-            layout(location = 0) out vec4 color;
-
-            in vec3 vPosition;
-            in vec4 vColor;
-
-            void main() {
-                color = vColor;
-            }
-        )";
+        mShaderLibrary.Load("../assets/shaders/Solid_Unlit.glsl", "Solid Unlit");
+        mShaderLibrary.Load("../assets/shaders/Texture.glsl");
 
 
-        mShader.reset(Pearl::Shader::Create(vertexSrc, fragmentSrc));
+        mTexture = Pearl::Texture2D::Create("../assets/textures/Checkerboard.png");
+        mChernoLogoTexture = Pearl::Texture2D::Create("../assets/textures/ChernoLogo.png");
 
-        std::string solidShaderVertexSrc = R"(
-            #version 460 core
-
-            layout(location = 0) in vec3 aPosition;
-
-            uniform mat4 uViewProjection;
-            uniform mat4 uTransform;
-
-            out vec3 vPosition;
-
-            void main() {
-                vPosition = aPosition;
-
-                gl_Position = uViewProjection * uTransform * vec4(aPosition, 1.0);
-            }
-        )";
-
-        std::string solidShaderFragmentSrc = R"(
-            #version 460 core
-
-            layout(location = 0) out vec4 color;
-
-            in vec3 vPosition;
-
-            uniform vec4 uColor;
-
-            void main() {
-                color = uColor;
-            }
-        )";
-
-
-        mSolidShader.reset(Pearl::Shader::Create(solidShaderVertexSrc, solidShaderFragmentSrc));
-
-        std::string textureShaderVertexSrc = R"(
-            #version 460 core
-
-            layout(location = 0) in vec3 aPosition;
-            layout(location = 1) in vec2 aTexCoord;
-
-            uniform mat4 uViewProjection;
-            uniform mat4 uTransform;
-
-            out vec2 vTexCoord;
-
-
-            void main() {
-                vTexCoord = aTexCoord;
-
-                gl_Position = uViewProjection * uTransform * vec4(aPosition, 1.0);
-            }
-        )";
-
-        std::string textureShaderFragmentSrc = R"(
-            #version 460 core
-
-            layout(location = 0) out vec4 color;
-
-            in vec2 vTexCoord;
-
-            void main() {
-                color = vec4(vTexCoord, 0.0, 1.0);
-            }
-        )";
-
-
-        mTextureShader.reset(Pearl::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+        std::dynamic_pointer_cast<Pearl::OpenGLShader>(mShaderLibrary.Get("Texture"))->UploadUniformInt("uTexture", 0);
     }
 
     void OnUpdate(Pearl::Timestep ts) override {
@@ -195,23 +101,30 @@ public:
         glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 
-        std::dynamic_pointer_cast<Pearl::OpenGLShader>(mSolidShader)->Bind();
+        auto textureShader = mShaderLibrary.Get("Texture");
+        auto solidShader = mShaderLibrary.Get("Solid Unlit");
+
+        solidShader->Bind();
         for(int y = 0; y < mNumCols; y++){
             for (int x = 0; x < mNumRows; ++x) {
                 glm::vec3 pos((x - mNumRows / 2.0f) * 0.11f, (y - mNumCols / 2.0f) * 0.11f, 0.0f);
                 glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
 
                 if(x % 2 == 0) {
-                    std::dynamic_pointer_cast<Pearl::OpenGLShader>(mSolidShader)->UploadUniformVec4("uColor", mColorA);
+                    std::dynamic_pointer_cast<Pearl::OpenGLShader>(solidShader)->UploadUniformVec4("uColor", mColorA);
                 } else {
-                    std::dynamic_pointer_cast<Pearl::OpenGLShader>(mSolidShader)->UploadUniformVec4("uColor", mColorB);
+                    std::dynamic_pointer_cast<Pearl::OpenGLShader>(solidShader)->UploadUniformVec4("uColor", mColorB);
                 }
 
-                Pearl::Renderer::Submit(mSolidShader, mSquareVA, transform);
+                Pearl::Renderer::Submit(solidShader, mSquareVA, transform);
             }
         }
 
-        Pearl::Renderer::Submit(mTextureShader, mSquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+        mTexture->Bind();
+        Pearl::Renderer::Submit(textureShader, mSquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+        mChernoLogoTexture->Bind();
+        Pearl::Renderer::Submit(textureShader, mSquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
         Pearl::Renderer::EndScene();
     }
@@ -231,13 +144,14 @@ public:
     }
 
 private:
-    Pearl::Ref<Pearl::Shader> mSolidShader;
-    Pearl::Ref<Pearl::Shader> mShader;
-    Pearl::Ref<Pearl::Shader> mTextureShader;
+    Pearl::ShaderLibrary mShaderLibrary;
 
     Pearl::Ref<Pearl::VertexArray> mSquareVA;
 
     Pearl::OrthographicCamera mCamera;
+
+    Pearl::Ref<Pearl::Texture2D> mTexture;
+    Pearl::Ref<Pearl::Texture2D> mChernoLogoTexture;
 
     glm::vec3 mCameraPosition;
     float mCameraMoveSpeed = 2.5f;

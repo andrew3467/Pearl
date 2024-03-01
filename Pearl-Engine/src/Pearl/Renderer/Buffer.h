@@ -10,8 +10,8 @@
 #include <vector>
 #include <string>
 
-#include "Pearl/Log.h"
-#include "Pearl/Core.h"
+#include "Pearl/Core/Log.h"
+#include "Pearl/Core/Core.h"
 
 namespace Pearl {
 

@@ -6,7 +6,7 @@
 #define PEARL_INPUT_H
 
 #include <utility>
-#include "Pearl/Core.h"
+#include "Pearl/Core/Core.h"
 
 namespace Pearl {
     class Input {

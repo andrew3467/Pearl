@@ -5,7 +5,7 @@
 #include "Buffer.h"
 
 #include "Renderer.h"
-#include "Pearl/Core.h"
+#include "Pearl/Core/Core.h"
 #include "Pearl/Platform/OpenGL/OpenGLBuffer.h"
 
 namespace Pearl {
