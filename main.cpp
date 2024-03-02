@@ -14,7 +14,7 @@
 class ExampleLayer : public Pearl::Layer{
 public:
     ExampleLayer()
-        : Layer("Example"), mCamera(-1.6f, 1.6f, -0.9f, 0.9f), mCameraPosition(0.0f), mSquarePosition(0.0f) {
+        : Layer("Example"), mCameraController(1280.0f / 720.0f, true) {
         mSquareVA.reset(Pearl::VertexArray::Create());
 
         float squareVertices[4 * 3 * 2] = {
@@ -54,48 +54,12 @@ public:
     }
 
     void OnUpdate(Pearl::Timestep ts) override {
-
-        if(Pearl::Input::IsKeyPressed(PRL_KEY_A)){
-            mCameraPosition.x -= mCameraMoveSpeed * ts;
-        }
-
-        if(Pearl::Input::IsKeyPressed(PRL_KEY_D)){
-            mCameraPosition.x += mCameraMoveSpeed * ts;
-        }
-
-        if(Pearl::Input::IsKeyPressed(PRL_KEY_S)){
-            mCameraPosition.y -= mCameraMoveSpeed * ts;
-        }
-
-        if(Pearl::Input::IsKeyPressed(PRL_KEY_W)){
-            mCameraPosition.y += mCameraMoveSpeed * ts;
-        }
-
-        if(Pearl::Input::IsKeyPressed(PRL_KEY_LEFT)){
-            mCameraRotation += mCameraRotationSpeed * ts;
-        }
-
-        if(Pearl::Input::IsKeyPressed(PRL_KEY_RIGHT)){
-            mCameraRotation -= mCameraRotationSpeed * ts;
-        }
-
-        if(Pearl::Input::IsKeyPressed(PRL_KEY_UP)){
-            mSquarePosition.y += mSquareMoveSpeed * ts;
-        }
-
-        if(Pearl::Input::IsKeyPressed(PRL_KEY_DOWN)){
-            mSquarePosition.y -= mSquareMoveSpeed * ts;
-        }
-
-
+        mCameraController.OnUpdate(ts);
 
         Pearl::RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1.0f});
         Pearl::RenderCommand::Clear();
 
-        mCamera.SetPosition(mCameraPosition);
-        mCamera.SetRotation(mCameraRotation);
-
-        Pearl::Renderer::BeginScene(mCamera);
+        Pearl::Renderer::BeginScene(mCameraController.GetCamera());
 
 
         glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
@@ -130,7 +94,7 @@ public:
     }
 
     void OnEvent(Pearl::Event &event) override {
-
+        mCameraController.OnEvent(event);
     }
 
 
@@ -148,16 +112,11 @@ private:
 
     Pearl::Ref<Pearl::VertexArray> mSquareVA;
 
-    Pearl::OrthographicCamera mCamera;
+    Pearl::OrthographicCameraController mCameraController;
 
     Pearl::Ref<Pearl::Texture2D> mTexture;
     Pearl::Ref<Pearl::Texture2D> mChernoLogoTexture;
 
-    glm::vec3 mCameraPosition;
-    float mCameraMoveSpeed = 2.5f;
-
-    float mCameraRotation = 0.0f;
-    float mCameraRotationSpeed = 180.0f;
 
     glm::vec3 mSquarePosition;
     float mSquareMoveSpeed = 1.0f;

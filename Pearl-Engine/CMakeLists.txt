@@ -40,6 +40,8 @@ add_library(Pearl-Engine
         ${SOURCE}
         ${HEADERS}
         ${GLAD_SRC}
+        src/Pearl/Renderer/Renderer2D.cpp
+        src/Pearl/OrthographicCameraController.h
 )
 
 target_link_libraries(Pearl-Engine

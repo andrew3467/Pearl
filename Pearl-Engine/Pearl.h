@@ -10,9 +10,6 @@
 #include "src/Pearl/Core/Layer.h"
 #include "src/Pearl/Core/Timestep.h"
 
-#include "../../Tungsten/Wolframite/src/Wolframite/Core/Timestep.h"
-
-
 #include "src/Pearl/Core/Input.h"
 #include "src/Pearl/Core/KeyCodes.h"
 #include "src/Pearl/Core/MouseButtonCodes.h"
@@ -23,6 +20,7 @@
 
 //Renderer
 #include "Pearl/Renderer/Renderer.h"
+#include "Pearl/Renderer/Renderer2D.h"
 #include "Pearl/Renderer/RenderCommand.h"
 
 
@@ -33,6 +31,7 @@
 
 
 #include "Pearl/Renderer/OrthographicCamera.h"
+#include "Pearl/OrthographicCameraController.h"
 
 
 //Entry Point

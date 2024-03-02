@@ -16,6 +16,11 @@ namespace Pearl {
         mViewProjectionMatrix = mProjectionMatrix * mViewMatrix;
     }
 
+    void OrthographicCamera::SetProjection(float left, float right, float bottom, float top) {
+        mProjectionMatrix = glm::ortho(left, right, bottom, top);
+        mViewProjectionMatrix = mProjectionMatrix * mViewMatrix;
+    }
+
     void OrthographicCamera::RecalculateViewMatrix() {
         glm::mat4 transform = glm::translate(glm::mat4(1.0f), mPosition) *
                 glm::rotate(glm::mat4(1.0f), glm::radians(mRotation), glm::vec3(0,0,1));

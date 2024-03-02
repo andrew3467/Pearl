@@ -66,7 +66,7 @@ namespace Pearl {
         template<typename T>
         bool Dispatch(EventFn<T> func){
             if(mEvent.GetEventType() == T::GetStaticType()){
-                mEvent.Handled = func(*(T*)&mEvent);
+                mEvent.Handled = func(static_cast<T&>(mEvent));
                 return true;
             }
 

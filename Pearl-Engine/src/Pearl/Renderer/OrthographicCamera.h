@@ -13,11 +13,13 @@ namespace Pearl {
         //  Near / Far default to -1 to 1
         OrthographicCamera(float left, float right, float bottom, float top);
 
+        void SetProjection(float left, float right, float bottom, float top);
 
         const glm::vec3& GetPosition() const {return mPosition;}
-        float GetRotation() const {return mRotation;}
 
+        float GetRotation() const {return mRotation;}
         void SetPosition(const glm::vec3& position){mPosition = position; RecalculateViewMatrix();}
+
         void SetRotation(const float rotation){mRotation = rotation; RecalculateViewMatrix();}
 
         const glm::mat4& GetProjectionMatrix() const {return mProjectionMatrix;}
