@@ -27,16 +27,15 @@ namespace Pearl {
 
         virtual const std::string& GetName() const override {return mName;};
 
-        void UploadUniformFloat(const std::string& name, const float& v);
-        void UploadUniformInt(const std::string& name, const int& v);
+        void SetFloat(const std::string& name, const float& v) override;
+        void SetInt(const std::string& name, const int& v) override;
 
+        void SetFloat2(const std::string& name, const glm::vec2& v) override;
+        void SetFloat3(const std::string& name, const glm::vec3& v) override;
+        void SetFloat4(const std::string& name, const glm::vec4& v) override;
 
-        void UploadUniformVec2(const std::string& name, const glm::vec2& v);
-        void UploadUniformVec3(const std::string& name, const glm::vec3& v);
-        void UploadUniformVec4(const std::string& name, const glm::vec4& v);
-
-        void UploadUniformMat4(const std::string& name, const glm::mat4& v);
-        void UploadUniformMat3(const std::string& name, const glm::mat3& v);
+        void SetMat4(const std::string& name, const glm::mat4& v) override;
+        void SetMat3(const std::string& name, const glm::mat3& v) override;
 
     private:
         int GetLocation(const std::string& name);

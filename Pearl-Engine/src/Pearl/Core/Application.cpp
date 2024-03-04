@@ -8,7 +8,7 @@
 #include "Pearl/Core/Input.h"
 #include "Pearl/Renderer/Renderer.h"
 
-#include <GLFW/glfw3.h>
+#include "GLFW/glfw3.h"
 
 
 namespace Pearl {
@@ -44,8 +44,10 @@ namespace Pearl {
             Timestep timestep = time - mLastFrameTime;
             mLastFrameTime = time;
 
-            for(Layer* layer : mLayerStack){
-                layer->OnUpdate(timestep);
+            if(!mMinimized) {
+                for (Layer *layer: mLayerStack) {
+                    layer->OnUpdate(timestep);
+                }
             }
 
             mImGuiLayer->Begin();
@@ -61,6 +63,7 @@ namespace Pearl {
     void Application::OnEvent(Event &e) {
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FUNC(Application::OnWindowClosed));
+        dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FUNC(Application::OnWindowResize));
 
         for(auto it = mLayerStack.end(); it != mLayerStack.begin(); ){
             (*--it)->OnEvent(e);
@@ -72,6 +75,19 @@ namespace Pearl {
 
     bool Application::OnWindowClosed(WindowCloseEvent &e) {
         mRunning = false;
+
+        return true;
+    }
+
+    bool Application::OnWindowResize(Pearl::WindowResizeEvent &e) {
+        if(e.GetHeight() == 0 || e.GetWidth() == 0){
+            mMinimized = true;
+            return false;
+        }
+
+        mMinimized = false;
+
+        Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
 
         return true;
     }

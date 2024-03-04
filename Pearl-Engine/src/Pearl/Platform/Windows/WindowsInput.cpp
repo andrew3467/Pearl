@@ -3,7 +3,7 @@
 //
 
 #include "WindowsInput.h"
-#include "Pearl/Application.h"
+#include "Pearl/Core/Application.h"
 
 #include <GLFW/glfw3.h>
 

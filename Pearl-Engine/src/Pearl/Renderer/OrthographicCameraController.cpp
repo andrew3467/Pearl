@@ -57,7 +57,7 @@ namespace Pearl {
     }
 
     bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent &e) {
-        mZoomLevel += e.GetYOffset() * 0.25f;
+        mZoomLevel -= e.GetYOffset() * 0.25f;
         mZoomLevel = std::max(mZoomLevel, 0.25f);
         mCamera.SetProjection(-mAspectRatio * mZoomLevel, mAspectRatio * mZoomLevel, -mZoomLevel, mZoomLevel);
 

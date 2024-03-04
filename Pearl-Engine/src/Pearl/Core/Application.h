@@ -14,7 +14,7 @@
 #include "Pearl/Renderer/Shader.h"
 #include "Pearl/Renderer/VertexArray.h"
 #include "Pearl/Renderer/OrthographicCamera.h"
-#include "../../../../Tungsten/Wolframite/src/Wolframite/Core/Timestep.h"
+#include "../../../../../Tungsten/Wolframite/src/Wolframite/Core/Timestep.h"
 
 
 namespace Pearl {
@@ -35,6 +35,7 @@ namespace Pearl {
 
     private:
         bool OnWindowClosed(WindowCloseEvent &e);
+        bool OnWindowResize(WindowResizeEvent &e);
 
     private:
 
@@ -46,6 +47,7 @@ namespace Pearl {
         ImGuiLayer* mImGuiLayer;
 
         bool mRunning = true;
+        bool mMinimized = false;
         LayerStack mLayerStack;
 
         float mLastFrameTime = 0.0f;

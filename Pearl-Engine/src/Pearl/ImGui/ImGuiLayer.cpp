@@ -3,7 +3,7 @@
 //
 
 #include "ImGuiLayer.h"
-#include "Pearl/Application.h"
+#include "Pearl/Core/Application.h"
 
 #define IMGUI_IMPL_API
 #include "backends/imgui_impl_glfw.h"

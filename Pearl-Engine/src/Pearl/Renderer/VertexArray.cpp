@@ -9,10 +9,10 @@
 
 namespace Pearl {
 
-    VertexArray *VertexArray::Create() {
+    Ref<VertexArray> VertexArray::Create() {
         switch (Renderer::GetAPI()) {
             case RendererAPI::API::None:             /*PRL_CORE_ASSERT(false, "Renderer API::None is currently not supported!"); */return nullptr;
-            case RendererAPI::API::OpenGL:           return new OpenGLVertexArray();
+            case RendererAPI::API::OpenGL:           return std::make_shared<OpenGLVertexArray>();
         }
 
         return nullptr;

@@ -5,14 +5,14 @@
 #ifndef PEARL_PEARL_H
 #define PEARL_PEARL_H
 
-#include "Pearl/Application.h"
-#include "src/Pearl/Core/Log.h"
-#include "src/Pearl/Core/Layer.h"
-#include "src/Pearl/Core/Timestep.h"
+#include "Pearl/Core/Application.h"
+#include "Pearl/Core/Log.h"
+#include "Pearl/Core/Layer.h"
+#include "Pearl/Core/Timestep.h"
 
-#include "src/Pearl/Core/Input.h"
-#include "src/Pearl/Core/KeyCodes.h"
-#include "src/Pearl/Core/MouseButtonCodes.h"
+#include "Pearl/Core/Input.h"
+#include "Pearl/Core/KeyCodes.h"
+#include "Pearl/Core/MouseButtonCodes.h"
 
 
 #include "Pearl/ImGui/ImGuiLayer.h"
@@ -31,11 +31,7 @@
 
 
 #include "Pearl/Renderer/OrthographicCamera.h"
-#include "Pearl/OrthographicCameraController.h"
-
-
-//Entry Point
-#include "src/Pearl/Core/EntryPoint.h"
+#include "Pearl/Renderer/OrthographicCameraController.h"
 
 
 

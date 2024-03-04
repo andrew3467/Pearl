@@ -171,31 +171,31 @@ namespace Pearl {
         return glGetUniformLocation(mRendererID, name.c_str());
     }
 
-    void OpenGLShader::UploadUniformFloat(const std::string &name, const float &v) {
+    void OpenGLShader::SetFloat(const std::string &name, const float &v) {
         glUniform1i(GetLocation(name), v);
     }
 
-    void OpenGLShader::UploadUniformInt(const std::string &name, const int &v) {
+    void OpenGLShader::SetInt(const std::string &name, const int &v) {
         glUniform1f(GetLocation(name), v);
     }
 
-    void OpenGLShader::UploadUniformVec2(const std::string &name, const glm::vec2 &v) {
+    void OpenGLShader::SetFloat2(const std::string &name, const glm::vec2 &v) {
         glUniform2f(GetLocation(name), v.x, v.y);
     }
 
-    void OpenGLShader::UploadUniformVec3(const std::string &name, const glm::vec3 &v) {
+    void OpenGLShader::SetFloat3(const std::string &name, const glm::vec3 &v) {
         glUniform3f(GetLocation(name), v.x, v.y, v.z);
     }
 
-    void OpenGLShader::UploadUniformVec4(const std::string &name, const glm::vec4 &v) {
+    void OpenGLShader::SetFloat4(const std::string &name, const glm::vec4 &v) {
         glUniform4f(GetLocation(name), v.x, v.y, v.z, v.w);
     }
 
-    void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4 &v) {
+    void OpenGLShader::SetMat4(const std::string& name, const glm::mat4 &v) {
         glUniformMatrix4fv(GetLocation(name), 1, false, glm::value_ptr(v));
     }
 
-    void OpenGLShader::UploadUniformMat3(const std::string &name, const glm::mat3 &v) {
+    void OpenGLShader::SetMat3(const std::string &name, const glm::mat3 &v) {
         glUniformMatrix3fv(GetLocation(name), 1, false, glm::value_ptr(v));
     }
 }
